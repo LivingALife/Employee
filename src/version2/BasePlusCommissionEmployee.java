@@ -3,33 +3,39 @@ package version2;
 public class BasePlusCommissionEmployee {
 
     private int empID;
-    private String empName;
+    private MyName empName;
     private double totalSale;
     private double baseSalary;
+    private MyDate birthDate;
+    private MyDate dateHired;
 
     // Default Constructor
     public BasePlusCommissionEmployee() {
         empID = 0;
-        empName = "N/A";
+        empName = new MyName();
         totalSale = 0;
         baseSalary = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Partial Constructor
     public BasePlusCommissionEmployee(
             int empID,
-            String empName) {
+            MyName empName) {
 
         this.empID = empID;
         this.empName = empName;
         totalSale = 0;
         baseSalary = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Full Constructor
     public BasePlusCommissionEmployee(
             int empID,
-            String empName,
+            MyName empName,
             double totalSale,
             double baseSalary) {
 
@@ -37,6 +43,8 @@ public class BasePlusCommissionEmployee {
         this.empName = empName;
         setTotalSale(totalSale);
         setBaseSalary(baseSalary);
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Getters and Setters
@@ -48,11 +56,11 @@ public class BasePlusCommissionEmployee {
         this.empID = empID;
     }
 
-    public String getEmpName() {
+    public MyName getEmpName() {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(MyName empName) {
         this.empName = empName;
     }
 
@@ -74,6 +82,22 @@ public class BasePlusCommissionEmployee {
         if (baseSalary >= 0) {
             this.baseSalary = baseSalary;
         }
+    }
+
+    public MyDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(MyDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public MyDate getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(MyDate dateHired) {
+        this.dateHired = dateHired;
     }
 
     // Get Commission Rate
@@ -101,11 +125,14 @@ public class BasePlusCommissionEmployee {
 
         System.out.printf(
                 "ID: %d | Name: %s | Total Sale: \u20B1%.2f | "
-                        + "Base Salary: \u20B1%.2f%n",
+                        + "Base Salary: \u20B1%.2f | Birth Date: %s | "
+                        + "Date Hired: %s%n",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalSale,
-                baseSalary
+                baseSalary,
+                birthDate,
+                dateHired
         );
     }
 
@@ -116,12 +143,15 @@ public class BasePlusCommissionEmployee {
         return String.format(
                 "BasePlusCommissionEmployee [ID: %d, Name: %s, "
                         + "Sales: \u20B1%.2f, Base Salary: \u20B1%.2f, "
-                        + "Commission Rate: %.0f%%, Total Salary: \u20B1%,.2f]",
+                        + "Commission Rate: %.0f%%, Birth Date: %s, "
+                        + "Date Hired: %s, Total Salary: \u20B1%,.2f]",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalSale,
                 baseSalary,
                 getCommissionRate() * 100,
+                birthDate,
+                dateHired,
                 computeSalary()
         );
     }

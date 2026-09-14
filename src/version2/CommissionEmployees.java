@@ -3,32 +3,40 @@ package version2;
 public class CommissionEmployee {
 
     private int empID;
-    private String empName;
+    private MyName empName;
     private double totalSale;
+    private MyDate birthDate;
+    private MyDate dateHired;
 
     // Default Constructor
     public CommissionEmployee() {
         empID = 0;
-        empName = "N/A";
+        empName = new MyName();
         totalSale = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Partial Constructor
-    public CommissionEmployee(int empID, String empName) {
+    public CommissionEmployee(int empID, MyName empName) {
         this.empID = empID;
         this.empName = empName;
         totalSale = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Full Constructor
     public CommissionEmployee(
             int empID,
-            String empName,
+            MyName empName,
             double totalSale) {
 
         this.empID = empID;
         this.empName = empName;
         setTotalSale(totalSale);
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Getters and Setters
@@ -40,11 +48,11 @@ public class CommissionEmployee {
         this.empID = empID;
     }
 
-    public String getEmpName() {
+    public MyName getEmpName() {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(MyName empName) {
         this.empName = empName;
     }
 
@@ -56,6 +64,22 @@ public class CommissionEmployee {
         if (totalSale >= 0) {
             this.totalSale = totalSale;
         }
+    }
+
+    public MyDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(MyDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public MyDate getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(MyDate dateHired) {
+        this.dateHired = dateHired;
     }
 
     // Get Commission Rate
@@ -82,10 +106,13 @@ public class CommissionEmployee {
     public void displayCommissionEmployee() {
 
         System.out.printf(
-                "ID: %d | Name: %s | Total Sale: \u20B1%.2f%n",
+                "ID: %d | Name: %s | Total Sale: \u20B1%.2f | "
+                        + "Birth Date: %s | Date Hired: %s%n",
                 empID,
-                empName,
-                totalSale
+                empName.getFullName(),
+                totalSale,
+                birthDate,
+                dateHired
         );
     }
 
@@ -96,11 +123,14 @@ public class CommissionEmployee {
         return String.format(
                 "CommissionEmployee [ID: %d, Name: %s, "
                         + "Total Sale: \u20B1%.2f, Commission Rate: %.0f%%, "
+                        + "Birth Date: %s, Date Hired: %s, "
                         + "Total Salary: \u20B1%,.2f]",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalSale,
                 getCommissionRate() * 100,
+                birthDate,
+                dateHired,
                 computeSalary()
         );
     }

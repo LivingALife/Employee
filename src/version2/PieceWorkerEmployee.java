@@ -3,30 +3,36 @@ package version2;
 public class PieceWorkerEmployee {
 
     private int empID;
-    private String empName;
+    private MyName empName;
     private int totalPiecesFinished;
     private double ratePerPiece;
+    private MyDate birthDate;
+    private MyDate dateHired;
 
     // Default Constructor
     public PieceWorkerEmployee() {
         empID = 0;
-        empName = "N/A";
+        empName = new MyName();
         totalPiecesFinished = 0;
         ratePerPiece = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Partial Constructor
-    public PieceWorkerEmployee(int empID, String empName) {
+    public PieceWorkerEmployee(int empID, MyName empName) {
         this.empID = empID;
         this.empName = empName;
         totalPiecesFinished = 0;
         ratePerPiece = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Full Constructor
     public PieceWorkerEmployee(
             int empID,
-            String empName,
+            MyName empName,
             int totalPiecesFinished,
             double ratePerPiece) {
 
@@ -34,6 +40,8 @@ public class PieceWorkerEmployee {
         this.empName = empName;
         setTotalPiecesFinished(totalPiecesFinished);
         setRatePerPiece(ratePerPiece);
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Getters and Setters
@@ -45,11 +53,11 @@ public class PieceWorkerEmployee {
         this.empID = empID;
     }
 
-    public String getEmpName() {
+    public MyName getEmpName() {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(MyName empName) {
         this.empName = empName;
     }
 
@@ -73,6 +81,22 @@ public class PieceWorkerEmployee {
         }
     }
 
+    public MyDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(MyDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public MyDate getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(MyDate dateHired) {
+        this.dateHired = dateHired;
+    }
+
     // Compute Salary
     public double computeSalary() {
 
@@ -93,11 +117,14 @@ public class PieceWorkerEmployee {
 
         System.out.printf(
                 "ID: %d | Name: %s | Pieces Finished: %d | "
-                        + "Rate/Piece: \u20B1%.2f%n",
+                        + "Rate/Piece: \u20B1%.2f | Birth Date: %s | "
+                        + "Date Hired: %s%n",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalPiecesFinished,
-                ratePerPiece
+                ratePerPiece,
+                birthDate,
+                dateHired
         );
     }
 
@@ -107,11 +134,14 @@ public class PieceWorkerEmployee {
 
         return String.format(
                 "PieceWorkerEmployee [ID: %d, Name: %s, Pieces: %d, "
-                        + "Rate: \u20B1%.2f, Total Salary: \u20B1%,.2f]",
+                        + "Rate: \u20B1%.2f, Birth Date: %s, Date Hired: %s, "
+                        + "Total Salary: \u20B1%,.2f]",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalPiecesFinished,
                 ratePerPiece,
+                birthDate,
+                dateHired,
                 computeSalary()
         );
     }

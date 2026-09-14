@@ -3,28 +3,34 @@ package version2;
 public class HourlyEmployee {
 
     private int empID;
-    private String empName;
+    private MyName empName;
     private float totalHoursWorked;
     private double ratePerHour = 0;
+    private MyDate birthDate;
+    private MyDate dateHired;
 
     // Default Constructor
     public HourlyEmployee() {
         empID = 0;
-        empName = "N/A";
+        empName = new MyName();
         totalHoursWorked = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Partial Constructor
-    public HourlyEmployee(int empID, String empName) {
+    public HourlyEmployee(int empID, MyName empName) {
         this.empID = empID;
         this.empName = empName;
         totalHoursWorked = 0;
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Full Constructor
     public HourlyEmployee(
             int empID,
-            String empName,
+            MyName empName,
             float totalHoursWorked,
             double ratePerHour) {
 
@@ -32,6 +38,8 @@ public class HourlyEmployee {
         this.empName = empName;
         setTotalHoursWorked(totalHoursWorked);
         setRatePerHour(ratePerHour);
+        birthDate = new MyDate();
+        dateHired = new MyDate();
     }
 
     // Getters and Setters
@@ -43,11 +51,11 @@ public class HourlyEmployee {
         this.empID = empID;
     }
 
-    public String getEmpName() {
+    public MyName getEmpName() {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(MyName empName) {
         this.empName = empName;
     }
 
@@ -71,6 +79,22 @@ public class HourlyEmployee {
         }
     }
 
+    public MyDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(MyDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public MyDate getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(MyDate dateHired) {
+        this.dateHired = dateHired;
+    }
+
     // Compute Salary
     public double computeSalary() {
 
@@ -90,11 +114,14 @@ public class HourlyEmployee {
     public void displayHourlyEmployee() {
 
         System.out.printf(
-                "ID: %d | Name: %s | Hours: %.2f | Rate: \u20B1%.2f/hr%n",
+                "ID: %d | Name: %s | Hours: %.2f | Rate: \u20B1%.2f/hr | "
+                        + "Birth Date: %s | Date Hired: %s%n",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalHoursWorked,
-                ratePerHour
+                ratePerHour,
+                birthDate,
+                dateHired
         );
     }
 
@@ -104,11 +131,14 @@ public class HourlyEmployee {
 
         return String.format(
                 "HourlyEmployee [ID: %d, Name: %s, Hours: %.2f, "
-                        + "Rate: $%.2f, Total Salary: $%,.2f]",
+                        + "Rate: $%.2f, Birth Date: %s, Date Hired: %s, "
+                        + "Total Salary: $%,.2f]",
                 empID,
-                empName,
+                empName.getFullName(),
                 totalHoursWorked,
                 ratePerHour,
+                birthDate,
+                dateHired,
                 computeSalary()
         );
     }
