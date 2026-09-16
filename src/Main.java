@@ -1,131 +1,62 @@
-import version2.*;
+package version3;
 
 public class Main {
-
     public static void main(String[] args) {
 
-        // =====================================================
-        // HOURLY EMPLOYEE TEST
-        // =====================================================
-
-        // First instance: Default constructor + setters
-        HourlyEmployee hourly1 = new HourlyEmployee();
-
-        hourly1.setEmpID(101);
-        hourly1.setEmpName(new MyName("Alice", "Smith"));
-        hourly1.setTotalHoursWorked(45.0f);
-        hourly1.setRatePerHour(200.00);
-        hourly1.setBirthDate(new MyDate(14, 5, 1998));
-        hourly1.setDateHired(new MyDate(1, 6, 2022));
-
-        // Second instance: Full constructor
-        HourlyEmployee hourly2 =
+        // Create an array of Employees (polymorphic collection)
+        Employee[] employees = {
                 new HourlyEmployee(
-                        102,
-                        new MyName("John", "Doe"),
-                        38.0f,
-                        180.00
-                );
-
-        System.out.println("--- Hourly Employee Test ---");
-        System.out.println("[displayHourlyEmployee()]");
-        hourly1.displayHourlyEmployee();
-
-        System.out.println();
-        System.out.println("[toString()]");
-        System.out.println(hourly1);
-
-        // =====================================================
-        // PIECE WORKER EMPLOYEE TEST
-        // =====================================================
-
-        PieceWorkerEmployee piece1 = new PieceWorkerEmployee();
-
-        piece1.setEmpID(201);
-        piece1.setEmpName(new MyName("Bob", "Jones"));
-        piece1.setTotalPiecesFinished(250);
-        piece1.setRatePerPiece(15.00);
-        piece1.setBirthDate(new MyDate(22, 11, 1995));
-        piece1.setDateHired(new MyDate(15, 3, 2021));
-
-        PieceWorkerEmployee piece2 =
+                        101,
+                        new MyName("Alice", "Smith"),
+                        new MyDate(14, 5, 1998),
+                        new MyDate(1, 6, 2022),
+                        45.0f,
+                        200.00
+                ),
                 new PieceWorkerEmployee(
-                        202,
-                        new MyName("Jane", "Doe"),
-                        350,
-                        12.00
-                );
-
-        System.out.println();
-        System.out.println("--- Piece Worker Employee Test ---");
-        System.out.println("[displayPieceWorkerEmployee()]");
-        piece1.displayPieceWorkerEmployee();
-
-        System.out.println();
-        System.out.println("[toString()]");
-        System.out.println(piece1);
-
-        // =====================================================
-        // COMMISSION EMPLOYEE TEST
-        // =====================================================
-
-        CommissionEmployee commission1 = new CommissionEmployee();
-
-        commission1.setEmpID(301);
-        commission1.setEmpName(new MyName("Charlie", "Brown"));
-        commission1.setTotalSale(75000.00);
-        commission1.setBirthDate(new MyDate(3, 9, 1990));
-        commission1.setDateHired(new MyDate(10, 1, 2019));
-
-        CommissionEmployee commission2 =
+                        201,
+                        new MyName("Bob", "Jones"),
+                        new MyDate(22, 11, 1995),
+                        new MyDate(15, 3, 2021),
+                        250,
+                        15.00
+                ),
                 new CommissionEmployee(
-                        302,
-                        new MyName("Diana", "Reyes"),
-                        150000.00
-                );
-
-        System.out.println();
-        System.out.println("--- Commission Employee Test ---");
-        System.out.println("[displayCommissionEmployee()]");
-        commission1.displayCommissionEmployee();
-        commission2.displayCommissionEmployee();
-
-        System.out.println();
-        System.out.println("[toString()]");
-        System.out.println(commission1);
-        System.out.println(commission2);
-
-        // =====================================================
-        // BASE PLUS COMMISSION EMPLOYEE TEST
-        // =====================================================
-
-        BasePlusCommissionEmployee basePlus1 =
-                new BasePlusCommissionEmployee();
-
-        basePlus1.setEmpID(401);
-        basePlus1.setEmpName(new MyName("Edward", "Santos"));
-        basePlus1.setTotalSale(600000.00);
-        basePlus1.setBaseSalary(25000.00);
-        basePlus1.setBirthDate(new MyDate(30, 7, 1988));
-        basePlus1.setDateHired(new MyDate(5, 4, 2015));
-
-        BasePlusCommissionEmployee basePlus2 =
+                        301,
+                        new MyName("Charlie", "Brown"),
+                        new MyDate(3, 9, 1990),
+                        new MyDate(10, 1, 2019),
+                        75000.00
+                ),
                 new BasePlusCommissionEmployee(
-                        402,
-                        new MyName("Fiona", "Garcia"),
-                        90000.00,
-                        30000.00
-                );
+                        401,
+                        new MyName("Edward", "Santos"),
+                        new MyDate(30, 7, 1988),
+                        new MyDate(5, 4, 2015),
+                        600000.00,
+                        25000.00
+                )
+        };
 
-        System.out.println();
-        System.out.println("--- Base Plus Commission Employee Test ---");
-        System.out.println("[displayBasePlusCommissionEmployee()]");
-        basePlus1.displayBasePlusCommissionEmployee();
-        basePlus2.displayBasePlusCommissionEmployee();
+        // Target month for birthday bonus
+        int currentMonth = 9; // September
 
-        System.out.println();
-        System.out.println("[toString()]");
-        System.out.println(basePlus1);
-        System.out.println(basePlus2);
+        System.out.println("--- Employee Tests ---");
+        for (Employee emp : employees) {
+            // Polymorphic toString() handles display
+            System.out.println(emp);
+            System.out.printf("Computed Salary (with bonus if birthday month): ₱%,.2f%n%n",
+                    emp.computeSalary(currentMonth));
+        }
+
+        // Deep clone test
+        System.out.println("--- Clone Test ---");
+        Employee original = employees[0];
+        Employee cloned = original.clone();
+
+        System.out.println("Original: " + original);
+        System.out.println("Cloned:   " + cloned);
+        System.out.println("Are they equal? " + original.equals(cloned));
+        System.out.println("Are they the same object? " + (original == cloned));
     }
 }
