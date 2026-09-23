@@ -1,0 +1,115 @@
+package version1;
+
+public class HourlyEmployee {
+
+    private int empID;
+    private String empName;
+    private float totalHoursWorked;
+    private double ratePerHour = 0;
+
+    // Default Constructor
+    public HourlyEmployee() {
+        empID = 0;
+        empName = "N/A";
+        totalHoursWorked = 0;
+    }
+
+    // Partial Constructor
+    public HourlyEmployee(int empID, String empName) {
+        this.empID = empID;
+        this.empName = empName;
+        totalHoursWorked = 0;
+    }
+
+    // Full Constructor
+    public HourlyEmployee(
+            int empID,
+            String empName,
+            float totalHoursWorked,
+            double ratePerHour) {
+
+        this.empID = empID;
+        this.empName = empName;
+        setTotalHoursWorked(totalHoursWorked);
+        setRatePerHour(ratePerHour);
+    }
+
+    // Getters and Setters
+    public int getEmpID() {
+        return empID;
+    }
+
+    public void setEmpID(int empID) {
+        this.empID = empID;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public float getTotalHoursWorked() {
+        return totalHoursWorked;
+    }
+
+    public void setTotalHoursWorked(float totalHoursWorked) {
+        if (totalHoursWorked >= 0) {
+            this.totalHoursWorked = totalHoursWorked;
+        }
+    }
+
+    public double getRatePerHour() {
+        return ratePerHour;
+    }
+
+    public void setRatePerHour(double ratePerHour) {
+        if (ratePerHour >= 0) {
+            this.ratePerHour = ratePerHour;
+        }
+    }
+
+    // Compute Salary
+    public double computeSalary() {
+
+        if (totalHoursWorked <= 40) {
+            return totalHoursWorked * ratePerHour;
+        }
+
+        double regularPay = 40 * ratePerHour;
+
+        double overtimePay =
+                (totalHoursWorked - 40) * (ratePerHour * 1.5);
+
+        return regularPay + overtimePay;
+    }
+
+    // Display Employee
+    public void displayHourlyEmployee() {
+
+        System.out.printf(
+                "ID: %d | Name: %s | Hours: %.2f | Rate: \u20B1%.2f/hr%n",
+                empID,
+                empName,
+                totalHoursWorked,
+                ratePerHour
+        );
+    }
+
+    // toString
+    @Override
+    public String toString() {
+
+        return String.format(
+                "HourlyEmployee [ID: %d, Name: %s, Hours: %.2f, "
+                        + "Rate: $%.2f, Total Salary: $%,.2f]",
+                empID,
+                empName,
+                totalHoursWorked,
+                ratePerHour,
+                computeSalary()
+        );
+    }
+}
